@@ -2,6 +2,7 @@ package me.ailistannen.sharpbotusagecreator
 
 import me.ailistannen.sharpbotusagecreator.commands.CommandFormatter
 import me.ailistannen.sharpbotusagecreator.github.GithubCloningSite
+import me.ailistannen.sharpbotusagecreator.markdown.MarkdownToc
 import me.ailistannen.sharpbotusagecreator.parser.CommandParser
 
 fun main(args: Array<String>) {
@@ -11,6 +12,7 @@ fun main(args: Array<String>) {
         println("Options:")
         println("\t--no-redownload-in-temp\t\tClones into this directory and won't delete it" +
                 " afterwards. Useful if you are testing and don't want to screw githubs API.")
+        println("\t--toc\t\tPrints a table of contents.")
         return
     }
 
@@ -25,9 +27,34 @@ fun main(args: Array<String>) {
     val githubTreeParser = GithubCloningSite("RayzrDev", "SharpBot", redownloadInTemp)
     val commandParser = CommandParser(githubTreeParser.getEntries())
 
-    val formatter = CommandFormatter()
-    for (command in commandParser.getCommands().sorted()) {
-        println(formatter.format(command))
-        println()
+    val toc = MarkdownToc {
+        heading {
+            content = "Table of contents"
+            size = 2
+        }
+        orderedList {
+            compact = true
+            for (headingNode in it) {
+                entry {
+                    link {
+                        content = headingNode.content
+                        url = "#${content.toLowerCase().replace(" ", "-")}"
+                    }
+                }
+            }
+        }
+        text { content = "<br><br>" }
     }
+
+    val formatter = CommandFormatter(toc)
+    val rendered: MutableList<String> = arrayListOf()
+    for (command in commandParser.getCommands().sorted()) {
+        rendered.add(formatter.format(command))
+    }
+
+    if (args.any { it == "--toc" }) {
+        rendered.add(0, toc.asString())
+    }
+
+    rendered.forEach { println(it) }
 }

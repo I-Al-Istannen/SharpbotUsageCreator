@@ -28,7 +28,7 @@ class ArrayExportMakeCommandTransformer : GithubEntryTransformer {
                 .toList()
 
         if (descriptions.isEmpty()) {
-            throw RuntimeException("No descriptions found in text upload.")
+            throw RuntimeException("No descriptions found in array command.")
         }
 
         return descriptions

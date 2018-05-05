@@ -36,7 +36,11 @@ directory again.
 ### Options
 * `java -jar <Path to downloaded/build jar> --help`  
    Shows the help
+
 * `java -jar <Path to downloaded/build jar> --no-redownload-in-temp`  
    Tells the program to clone the repo in the current folder and NOT delete it after
    the program is done. This allows you to re-run it without making new API-Requests to
    Github.
+
+* `java -jar <Path to downloaded/build jar> --toc`  
+   Prepends a Table of contents to the output

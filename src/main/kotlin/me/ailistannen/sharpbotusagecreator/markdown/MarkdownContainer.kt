@@ -5,7 +5,11 @@ abstract class MarkdownNode {
     abstract fun asString(): String
 }
 
-class MarkdownContainer(init: (MarkdownContainer).() -> Unit) : MarkdownNode() {
+class MarkdownContainer(
+        var toc: MarkdownToc = MarkdownToc { },
+        init: (MarkdownContainer).() -> Unit
+
+) : MarkdownNode() {
 
     private val children: MutableList<MarkdownNode> = arrayListOf()
 
@@ -17,8 +21,12 @@ class MarkdownContainer(init: (MarkdownContainer).() -> Unit) : MarkdownNode() {
         addNode(init, StringNode())
     }
 
-    fun heading(init: (HeadingNode).() -> Unit) {
-        addNode(init, HeadingNode())
+    fun heading(inToc: Boolean = false, init: (HeadingNode).() -> Unit) {
+        val headingNode = HeadingNode()
+        addNode(init, headingNode)
+        if (inToc) {
+            toc.addEntry(headingNode)
+        }
     }
 
     fun code(init: (CodeNode).() -> Unit) {
@@ -26,7 +34,15 @@ class MarkdownContainer(init: (MarkdownContainer).() -> Unit) : MarkdownNode() {
     }
 
     fun unorderedList(init: (UnorderedListNode).() -> Unit) {
-        addNode(init, UnorderedListNode())
+        addNode(init, UnorderedListNode(this))
+    }
+
+    fun orderedList(init: (OrderedListNode).() -> Unit) {
+        addNode(init, OrderedListNode(this))
+    }
+
+    fun link(init: (LinkNode).() -> Unit) {
+        addNode(init, LinkNode())
     }
 
     private fun <T : MarkdownNode> addNode(init: (T).() -> Unit, element: T) {
@@ -40,7 +56,6 @@ class MarkdownContainer(init: (MarkdownContainer).() -> Unit) : MarkdownNode() {
         for (child in children) {
             result
                     .append(child.asString())
-                    .append("\n")
         }
 
         return result.toString()
@@ -49,7 +64,14 @@ class MarkdownContainer(init: (MarkdownContainer).() -> Unit) : MarkdownNode() {
 }
 
 class StringNode(var content: String = "") : MarkdownNode() {
-    override fun asString(): String = content
+
+    var paragraph: Boolean = false;
+
+    override fun asString(): String = if (paragraph) {
+        "\n\n$content\n\n"
+    } else {
+        content
+    }
 }
 
 class HeadingNode(var content: String = "", var size: Int = 1) : MarkdownNode() {
@@ -72,27 +94,63 @@ class CodeNode(var content: String = "", var language: String = "") : MarkdownNo
     }
 }
 
-class UnorderedListNode(private var entries: MutableList<MarkdownNode> = arrayListOf()) : MarkdownNode() {
+class UnorderedListNode(parent: MarkdownContainer,
+                        entries: MutableList<MarkdownNode> = arrayListOf()
+) : ListNode(parent, { "*" }, entries)
+
+class OrderedListNode(parent: MarkdownContainer,
+                      entries: MutableList<MarkdownNode> = arrayListOf()
+) : ListNode(parent, { it.inc().toString() + "." }, entries)
+
+abstract class ListNode(private var parent: MarkdownContainer,
+                        private var prefix: (Int) -> String,
+                        private var entries: MutableList<MarkdownNode> = arrayListOf()
+) : MarkdownNode() {
+
+    var compact: Boolean = false
 
     fun entry(init: (MarkdownContainer).() -> Unit) {
-        val container = MarkdownContainer(init)
+        val container = MarkdownContainer(parent.toc, init)
         entries.add(container)
     }
 
     override fun asString(): String {
         val result = StringBuilder()
 
-        for (entry in entries) {
+        for ((index, entry) in entries.withIndex()) {
             val lines = entry.asString().lines()
             val indentedContent = lines
                     .drop(1)
                     .joinToString("\n") { "  $it" }
             val entryString = lines.first() + "\n" + indentedContent
-            result
-                    .append("* $entryString")
-                    .append("\n")
+            result.append("${prefix.invoke(index)} $entryString")
+
+            if (!compact) {
+                result.append("\n")
+            }
         }
 
         return result.toString()
+    }
+}
+
+class LinkNode(var content: String = "", var url: String = "") : MarkdownNode() {
+
+    override fun asString(): String {
+        return "[$content]($url)"
+    }
+}
+
+class MarkdownToc(private val formatter: MarkdownContainer.(List<HeadingNode>) -> Unit) {
+    private val nodes: MutableList<HeadingNode> = arrayListOf()
+
+    fun addEntry(headingNode: HeadingNode) {
+        nodes.add(headingNode)
+    }
+
+    fun asString(): String {
+        val root = MarkdownContainer(this) {}
+        root.formatter(nodes)
+        return root.asString()
     }
 }

@@ -2,15 +2,16 @@ package me.ailistannen.sharpbotusagecreator.commands
 
 import com.google.gson.JsonObject
 import me.ailistannen.sharpbotusagecreator.markdown.MarkdownContainer
+import me.ailistannen.sharpbotusagecreator.markdown.MarkdownToc
 import me.ailistannen.sharpbotusagecreator.parser.Command
 
-class CommandFormatter {
+class CommandFormatter(private val toc: MarkdownToc) {
 
     fun format(command: Command): String {
         val info = command.exportsInfo
 
-        return MarkdownContainer {
-            heading {
+        return MarkdownContainer(toc) {
+            heading(inToc = true) {
                 content = info["name"]?.asString?.capitalize() ?: "Nothing given :("
                 size = 2
             }
