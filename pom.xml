@@ -10,6 +10,7 @@
 
   <properties>
     <kotlin.version>1.2.41</kotlin.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
   <build>
@@ -45,15 +46,6 @@
       <plugin>
         <artifactId>maven-shade-plugin</artifactId>
         <version>3.1.1</version>
-        <executions>
-          <execution>
-            <id>shade</id>
-            <phase>package</phase>
-            <goals>
-              <goal>shade</goal>
-            </goals>
-          </execution>
-        </executions>
         <configuration>
           <finalName>SharpbotUsageCreator</finalName>
           <minimizeJar>true</minimizeJar>
@@ -66,6 +58,15 @@
             </transformer>
           </transformers>
         </configuration>
+        <executions>
+          <execution>
+            <id>shade</id>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
