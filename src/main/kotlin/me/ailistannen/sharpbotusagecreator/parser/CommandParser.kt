@@ -15,7 +15,7 @@ class CommandParser(private val entries: List<GithubEntry>) {
     init {
         transformers.add(StatusTransformer())
         transformers.add(DictionaryTransformer())
-        transformers.add(TextUploadTransformer())
+        transformers.add(ArrayExportMakeCommandTransformer())
         transformers.add(DefaultTransformer())
     }
 

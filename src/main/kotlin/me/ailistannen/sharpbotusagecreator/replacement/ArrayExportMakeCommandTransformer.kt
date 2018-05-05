@@ -5,15 +5,18 @@ import me.ailistannen.sharpbotusagecreator.Json
 import me.ailistannen.sharpbotusagecreator.github.GithubEntry
 import me.ailistannen.sharpbotusagecreator.parser.Command
 
-class TextUploadTransformer : GithubEntryTransformer {
+class ArrayExportMakeCommandTransformer : GithubEntryTransformer {
 
     override fun canTransform(entry: GithubEntry, content: String): Boolean {
         return entry.path.toString().endsWith("text-upload.js")
+                || entry.path.toString().endsWith("message-deletion.js")
+                || entry.path.toString().endsWith("animals.js")
     }
 
     override fun transform(content: String): List<Command> {
         val modifiedContent = COMMAND_MODIFIER_REGEX.replace(content, "$1")
                 .replace("module.", "")
+                .replace(".+require.+".toRegex(), "")
 
         val descriptions = (parseWithNashorn(modifiedContent) as ScriptObjectMirror)
                 .values
