@@ -2,27 +2,27 @@ package me.ailistannen.sharpbotusagecreator.commands
 
 import com.google.gson.JsonObject
 import me.ailistannen.sharpbotusagecreator.markdown.MarkdownContainer
-import me.ailistannen.sharpbotusagecreator.parser.CommandParser
+import me.ailistannen.sharpbotusagecreator.parser.Command
 
 class CommandFormatter {
 
-    fun format(command: CommandParser.Command): String {
+    fun format(command: Command): String {
         val info = command.exportsInfo
 
         return MarkdownContainer {
             heading {
-                content = info["name"].asString.capitalize()
-                size = 3
+                content = info["name"]?.asString?.capitalize() ?: "Nothing given :("
+                size = 2
             }
             text {
-                content = info["description"].asString
+                content = info["description"]?.asString ?: "Nothing given :("
             }
             heading {
                 content = "Usage"
                 size = 4
             }
             code {
-                content = info["usage"].asString
+                content = info["usage"]?.asString ?: "Nothing given :("
                 inline = true
             }
             info.get("examples")?.let {
@@ -61,6 +61,8 @@ class CommandFormatter {
                     }
                 }
             }
+
+            text { content = "<br><br>" }
         }.asString()
     }
 }

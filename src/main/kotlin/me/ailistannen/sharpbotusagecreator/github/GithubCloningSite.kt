@@ -12,7 +12,7 @@ class GithubCloningSite(
 ) : Iterable<GithubEntry> {
 
     private var directory: Path? = null
-    private var entries: List<GithubEntry> = emptyList()
+    private var entries: List<GithubEntry>? = null
 
     override fun iterator(): Iterator<GithubEntry> = getEntries().iterator()
 
@@ -22,7 +22,6 @@ class GithubCloningSite(
         if (Files.exists(tempDirectory)) {
             return tempDirectory
         }
-
 //        val tempDirectory = Files.createTempDirectory("cloned-sharpbot")
         val process = ProcessBuilder(
                 listOf(
@@ -31,7 +30,9 @@ class GithubCloningSite(
                         buildGithubUrl(user, repo),
                         tempDirectory.toAbsolutePath().toString()
                 )
-        ).start()
+        )
+                .inheritIO()
+                .start()
 
         process.waitFor()
 
@@ -45,7 +46,16 @@ class GithubCloningSite(
         return tempDirectory
     }
 
-    private fun getEntries(): List<GithubEntry> {
+    /**
+     * Returns the found entries.
+     *
+     * @return the found [GithubEntry]s
+     */
+    fun getEntries(): List<GithubEntry> {
+        if (entries != null) {
+            return entries!!
+        }
+
         if (directory == null) {
             directory = clone()
         }
@@ -54,7 +64,7 @@ class GithubCloningSite(
                 .map { GithubEntry(it, Files.isRegularFile(it)) }
                 .toList()
 
-        return entries
+        return entries!!
     }
 }
 
@@ -63,11 +73,10 @@ class GithubCloningSite(
  *
  * @param user the user the repo belongs to
  * @param repo the repository to read from
- * @param commitSha the sha of the commit or the branch name
  * @return the full url
  */
-private fun buildGithubUrl(user: String, repo: String, commitSha: String = "master"): String {
-    return "https://api.github.com/repos/$user/$repo/git/trees/$commitSha?recursive=1"
+private fun buildGithubUrl(user: String, repo: String): String {
+    return "https://github.com/$user/$repo"
 }
 
 private fun Path.deleteDirectory() {
@@ -75,3 +84,5 @@ private fun Path.deleteDirectory() {
             .sorted(Comparator.reverseOrder())
             .forEach { Files.delete(it) }
 }
+
+data class GithubEntry(val path: Path, val isFile: Boolean)
