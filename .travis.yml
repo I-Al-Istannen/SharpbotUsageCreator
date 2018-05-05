@@ -6,4 +6,5 @@ deploy:
   file: target/SharpbotUsageCreator.jar
   on:
     repo: I-Al-Istannen/SharpbotUsageCreator
+    branch: master
     tags: true
