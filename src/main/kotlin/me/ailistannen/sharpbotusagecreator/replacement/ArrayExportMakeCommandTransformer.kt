@@ -8,9 +8,10 @@ import me.ailistannen.sharpbotusagecreator.parser.Command
 class ArrayExportMakeCommandTransformer : GithubEntryTransformer {
 
     override fun canTransform(entry: GithubEntry, content: String): Boolean {
-        return entry.path.toString().endsWith("text-upload.js")
-                || entry.path.toString().endsWith("message-deletion.js")
-                || entry.path.toString().endsWith("animals.js")
+        return COMMAND_MODIFIER_REGEX.find(content) != null
+                && "function makeCommand" in content
+                && "module.exports = [" in content
+        //      && PRAY
     }
 
     override fun transform(content: String): List<Command> {
