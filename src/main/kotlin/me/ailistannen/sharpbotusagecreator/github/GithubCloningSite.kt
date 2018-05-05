@@ -7,7 +7,8 @@ import kotlin.streams.toList
 
 class GithubCloningSite(
         private val user: String,
-        private val repo: String
+        private val repo: String,
+        private val redownloadAsTemp: Boolean = true
 
 ) : Iterable<GithubEntry> {
 
@@ -17,12 +18,20 @@ class GithubCloningSite(
     override fun iterator(): Iterator<GithubEntry> = getEntries().iterator()
 
     private fun clone(): Path {
-        val tempDirectory = Paths.get("/tmp/sharp")
+        val tempDirectory: Path
 
-        if (Files.exists(tempDirectory)) {
-            return tempDirectory
+        if (redownloadAsTemp) {
+            tempDirectory = Files.createTempDirectory("cloned-sharpbot")
+        } else {
+            tempDirectory = Paths.get("sharp")
+
+            if (Files.exists(tempDirectory)) {
+                return tempDirectory
+            }
+
+            Files.createDirectories(tempDirectory)
         }
-//        val tempDirectory = Files.createTempDirectory("cloned-sharpbot")
+
         val process = ProcessBuilder(
                 listOf(
                         "git",
@@ -41,7 +50,9 @@ class GithubCloningSite(
         }
 
         // clean up after us?
-//        Runtime.getRuntime().addShutdownHook(Thread { tempDirectory.deleteDirectory() })
+        if (redownloadAsTemp) {
+            Runtime.getRuntime().addShutdownHook(Thread { tempDirectory.deleteDirectory() })
+        }
 
         return tempDirectory
     }

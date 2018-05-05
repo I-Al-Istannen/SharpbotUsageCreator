@@ -51,4 +51,9 @@ class CommandParser(private val entries: List<GithubEntry>) {
 
 }
 
-data class Command(val exportsInfo: JsonObject)
+data class Command(val exportsInfo: JsonObject) : Comparable<Command> {
+
+    override fun compareTo(other: Command): Int {
+        return exportsInfo["name"].asString.compareTo(other.exportsInfo["name"].asString)
+    }
+}

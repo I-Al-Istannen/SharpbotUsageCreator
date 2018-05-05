@@ -41,6 +41,32 @@
           <jvmTarget>1.8</jvmTarget>
         </configuration>
       </plugin>
+
+      <plugin>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.1.1</version>
+        <executions>
+          <execution>
+            <id>shade</id>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <finalName>SharpbotUsageCreator</finalName>
+          <minimizeJar>true</minimizeJar>
+          <transformers>
+            <transformer
+              implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+              <manifestEntries>
+                <Main-Class>me.ailistannen.sharpbotusagecreator.MainKt</Main-Class>
+              </manifestEntries>
+            </transformer>
+          </transformers>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 
@@ -62,6 +88,27 @@
       <artifactId>gson</artifactId>
       <version>2.8.2</version>
     </dependency>
+
+    <!--<dependency>-->
+    <!--<groupId>org.jetbrains.kotlin</groupId>-->
+    <!--<artifactId>kotlin-script-runtime</artifactId>-->
+    <!--<version>${kotlin.version}</version>-->
+    <!--</dependency>-->
+    <!--<dependency>-->
+    <!--<groupId>org.jetbrains.kotlin</groupId>-->
+    <!--<artifactId>kotlin-script-util</artifactId>-->
+    <!--<version>${kotlin.version}</version>-->
+    <!--</dependency>-->
+    <!--<dependency>-->
+    <!--<groupId>org.jetbrains.kotlin</groupId>-->
+    <!--<artifactId>kotlin-reflect</artifactId>-->
+    <!--<version>${kotlin.version}</version>-->
+    <!--</dependency>-->
+    <!--<dependency>-->
+    <!--<groupId>org.jetbrains.kotlin</groupId>-->
+    <!--<artifactId>kotlin-compiler-embeddable</artifactId>-->
+    <!--<version>${kotlin.version}</version>-->
+    <!--</dependency>-->
   </dependencies>
 
 
