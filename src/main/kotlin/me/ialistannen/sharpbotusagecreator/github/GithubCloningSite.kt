@@ -1,4 +1,4 @@
-package me.ailistannen.sharpbotusagecreator.github
+package me.ialistannen.sharpbotusagecreator.github
 
 import java.nio.file.Files
 import java.nio.file.Path

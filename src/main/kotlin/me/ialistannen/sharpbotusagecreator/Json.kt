@@ -1,4 +1,4 @@
-package me.ailistannen.sharpbotusagecreator
+package me.ialistannen.sharpbotusagecreator
 
 import com.google.gson.*
 import jdk.nashorn.api.scripting.ScriptObjectMirror

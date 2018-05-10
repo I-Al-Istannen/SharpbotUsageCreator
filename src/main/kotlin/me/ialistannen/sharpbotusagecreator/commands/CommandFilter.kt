@@ -1,6 +1,6 @@
-package me.ailistannen.sharpbotusagecreator.commands
+package me.ialistannen.sharpbotusagecreator.commands
 
-import me.ailistannen.sharpbotusagecreator.github.GithubEntry
+import me.ialistannen.sharpbotusagecreator.github.GithubEntry
 
 fun isCommandFile(t: GithubEntry): Boolean {
     return t.path.toString().contains("src/commands")

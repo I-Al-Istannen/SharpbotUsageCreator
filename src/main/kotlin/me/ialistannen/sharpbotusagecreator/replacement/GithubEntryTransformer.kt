@@ -1,10 +1,10 @@
-package me.ailistannen.sharpbotusagecreator.replacement
+package me.ialistannen.sharpbotusagecreator.replacement
 
 import com.google.gson.JsonObject
 import jdk.nashorn.api.scripting.NashornScriptEngineFactory
-import me.ailistannen.sharpbotusagecreator.Json
-import me.ailistannen.sharpbotusagecreator.github.GithubEntry
-import me.ailistannen.sharpbotusagecreator.parser.Command
+import me.ialistannen.sharpbotusagecreator.Json
+import me.ialistannen.sharpbotusagecreator.github.GithubEntry
+import me.ialistannen.sharpbotusagecreator.parser.Command
 import javax.script.ScriptEngine
 
 interface GithubEntryTransformer {

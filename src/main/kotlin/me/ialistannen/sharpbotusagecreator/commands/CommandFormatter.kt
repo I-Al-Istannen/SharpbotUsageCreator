@@ -1,9 +1,9 @@
-package me.ailistannen.sharpbotusagecreator.commands
+package me.ialistannen.sharpbotusagecreator.commands
 
 import com.google.gson.JsonObject
-import me.ailistannen.sharpbotusagecreator.markdown.MarkdownContainer
-import me.ailistannen.sharpbotusagecreator.markdown.MarkdownToc
-import me.ailistannen.sharpbotusagecreator.parser.Command
+import me.ialistannen.sharpbotusagecreator.markdown.MarkdownContainer
+import me.ialistannen.sharpbotusagecreator.markdown.MarkdownToc
+import me.ialistannen.sharpbotusagecreator.parser.Command
 
 class CommandFormatter(private val toc: MarkdownToc) {
 

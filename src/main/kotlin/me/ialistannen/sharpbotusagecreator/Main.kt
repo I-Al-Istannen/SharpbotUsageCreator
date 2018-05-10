@@ -1,9 +1,9 @@
-package me.ailistannen.sharpbotusagecreator
+package me.ialistannen.sharpbotusagecreator
 
-import me.ailistannen.sharpbotusagecreator.commands.CommandFormatter
-import me.ailistannen.sharpbotusagecreator.github.GithubCloningSite
-import me.ailistannen.sharpbotusagecreator.markdown.MarkdownToc
-import me.ailistannen.sharpbotusagecreator.parser.CommandParser
+import me.ialistannen.sharpbotusagecreator.commands.CommandFormatter
+import me.ialistannen.sharpbotusagecreator.github.GithubCloningSite
+import me.ialistannen.sharpbotusagecreator.markdown.MarkdownToc
+import me.ialistannen.sharpbotusagecreator.parser.CommandParser
 
 fun main(args: Array<String>) {
     if (args.any { it == "--help" }) {

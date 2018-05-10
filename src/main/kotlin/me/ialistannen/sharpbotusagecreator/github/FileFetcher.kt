@@ -1,4 +1,4 @@
-package me.ailistannen.sharpbotusagecreator.github
+package me.ialistannen.sharpbotusagecreator.github
 
 class FileFetcher {
 

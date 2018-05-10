@@ -1,4 +1,4 @@
-package me.ailistannen.sharpbotusagecreator.markdown
+package me.ialistannen.sharpbotusagecreator.markdown
 
 abstract class MarkdownNode {
 
@@ -65,7 +65,7 @@ class MarkdownContainer(
 
 class StringNode(var content: String = "") : MarkdownNode() {
 
-    var paragraph: Boolean = false;
+    var paragraph: Boolean = false
 
     override fun asString(): String = if (paragraph) {
         "\n\n$content\n\n"

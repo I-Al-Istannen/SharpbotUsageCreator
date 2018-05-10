@@ -1,10 +1,10 @@
-package me.ailistannen.sharpbotusagecreator.parser
+package me.ialistannen.sharpbotusagecreator.parser
 
 import com.google.gson.JsonObject
-import me.ailistannen.sharpbotusagecreator.commands.isCommandFile
-import me.ailistannen.sharpbotusagecreator.github.FileFetcher
-import me.ailistannen.sharpbotusagecreator.github.GithubEntry
-import me.ailistannen.sharpbotusagecreator.replacement.*
+import me.ialistannen.sharpbotusagecreator.commands.isCommandFile
+import me.ialistannen.sharpbotusagecreator.github.FileFetcher
+import me.ialistannen.sharpbotusagecreator.github.GithubEntry
+import me.ialistannen.sharpbotusagecreator.replacement.*
 
 class CommandParser(private val entries: List<GithubEntry>) {
 

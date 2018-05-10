@@ -1,7 +1,7 @@
-package me.ailistannen.sharpbotusagecreator.replacement
+package me.ialistannen.sharpbotusagecreator.replacement
 
-import me.ailistannen.sharpbotusagecreator.github.GithubEntry
-import me.ailistannen.sharpbotusagecreator.parser.Command
+import me.ialistannen.sharpbotusagecreator.github.GithubEntry
+import me.ialistannen.sharpbotusagecreator.parser.Command
 
 class DictionaryTransformer : GithubEntryTransformer {
 
