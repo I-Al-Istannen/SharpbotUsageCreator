@@ -25,10 +25,6 @@ class MarkdownStylesheet : Stylesheet() {
             backgroundPosition += BackgroundPosition.CENTER
             backgroundRepeat += Pair(BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT)
             effect = DropShadow(10.0, Color.BLACK)
-
-            and(hover) {
-                opacity = 0.7
-            }
         }
     }
 }

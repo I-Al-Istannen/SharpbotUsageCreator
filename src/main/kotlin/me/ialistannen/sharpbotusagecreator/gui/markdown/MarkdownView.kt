@@ -1,7 +1,9 @@
 package me.ialistannen.sharpbotusagecreator.gui.markdown
 
+import javafx.animation.ScaleTransition
 import javafx.geometry.Pos
 import javafx.scene.web.WebView
+import javafx.util.Duration
 import tornadofx.*
 
 class MarkdownView : View("Markdown display") {
@@ -22,6 +24,17 @@ class MarkdownView : View("Markdown display") {
                 }
 
                 action { scrollToTop() }
+
+                val scaleTransition = ScaleTransition(Duration.seconds(0.2), this).apply {
+                    toX = 1.2
+                    toY = 1.2
+                }
+                setOnMouseExited {
+                    scaleTransition.stop()
+                    scaleX = 1.0
+                    scaleY = 1.0
+                }
+                setOnMouseEntered { scaleTransition.playFromStart() }
             }
 
             addStylesheet(MarkdownStylesheet::class)

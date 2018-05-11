@@ -68,7 +68,7 @@ class StartupSettings : View("Settings") {
 
                 replaceWith(
                         markdownView,
-                        Slide(Duration.seconds(1.0), Direction.DOWN),
+                        Slide(Duration.seconds(0.5), Direction.DOWN),
                         sizeToScene = true,
                         centerOnScreen = true
                 )
