@@ -65,6 +65,12 @@
                 <include>**</include>
               </includes>
             </filter>
+            <filter>
+              <artifact>com.ibm.icu:*</artifact>
+              <excludes>
+                <exclude>**</exclude>
+              </excludes>
+            </filter>
           </filters>
         </configuration>
         <executions>
