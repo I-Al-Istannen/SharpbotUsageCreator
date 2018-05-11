@@ -1,7 +1,5 @@
 package me.ialistannen.sharpbotusagecreator.gui.markdown
 
-import com.vladsch.flexmark.ext.gfm.strikethrough.StrikethroughExtension
-import com.vladsch.flexmark.ext.tables.TablesExtension
 import com.vladsch.flexmark.html.HtmlRenderer
 import com.vladsch.flexmark.parser.Parser
 import com.vladsch.flexmark.util.options.MutableDataSet
@@ -17,8 +15,6 @@ class MarkdownController : Controller() {
         private val options: MutableDataSet by lazy {
             MutableDataSet().apply {
                 set(Parser.EXTENSIONS, listOf(
-                        TablesExtension.create(),
-                        StrikethroughExtension.create(),
                         HeadingIdExtension()
                 ))
             }

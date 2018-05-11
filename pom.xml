@@ -6,7 +6,7 @@
 
   <groupId>me.ialistannen</groupId>
   <artifactId>SharpbotUsageCreator</artifactId>
-  <version>1.1-SNAPSHOT</version>
+  <version>1.1.1-SNAPSHOT</version>
 
   <properties>
     <kotlin.version>1.2.41</kotlin.version>
@@ -65,12 +65,6 @@
                 <include>**</include>
               </includes>
             </filter>
-            <filter>
-              <artifact>com.ibm.icu:*</artifact>
-              <excludes>
-                <exclude>**</exclude>
-              </excludes>
-            </filter>
           </filters>
         </configuration>
         <executions>
@@ -117,9 +111,10 @@
       <version>1.7.15</version>
     </dependency>
 
+    <!-- https://mvnrepository.com/artifact/com.vladsch.flexmark/flexmark -->
     <dependency>
       <groupId>com.vladsch.flexmark</groupId>
-      <artifactId>flexmark-all</artifactId>
+      <artifactId>flexmark</artifactId>
       <version>0.32.22</version>
     </dependency>
   </dependencies>
