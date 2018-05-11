@@ -56,8 +56,8 @@ class MarkdownController : Controller() {
     }
 
     private fun generateHtmlFromTemplate(body: String): String {
-        val githubMarkdown = resources.url("/github-markdown.css")
-        val bodyStyle = resources.url("/markdown-body-style.css")
+        val githubMarkdown = resources.url("/css/github-markdown.css")
+        val bodyStyle = resources.url("/css/markdown-body-style.css")
         return """
             |<head>
             |  <meta charset="UTF-8">

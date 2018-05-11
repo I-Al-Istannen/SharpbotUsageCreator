@@ -37,7 +37,7 @@ class MarkdownView : View("Markdown display") {
      *
      * @param markdown the markdown to display
      */
-    fun setMarkdown(markdown: String) {
+    private fun setMarkdown(markdown: String) {
         runAsync {
             controller.markdownToHtml(markdown)
         } ui { url ->
