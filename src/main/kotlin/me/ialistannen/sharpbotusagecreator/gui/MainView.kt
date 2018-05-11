@@ -1,9 +1,8 @@
 package me.ialistannen.sharpbotusagecreator.gui
 
 import me.ialistannen.sharpbotusagecreator.UsageCreator
+import me.ialistannen.sharpbotusagecreator.gui.markdown.MarkdownView
 import me.ialistannen.sharpbotusagecreator.gui.settings.UserSettingsModel
-import me.ialistannen.sharpbotusagecreator.gui.view.MarkdownView
-import me.ialistannen.sharpbotusagecreator.gui.view.StartupDialog
 import tornadofx.*
 
 
@@ -18,8 +17,6 @@ class MainView : View("Main view") {
     }
 
     init {
-        find(StartupDialog::class).openModal(block = true)
-
         markdownView.root.runAsyncWithOverlay {
             UsageCreator().getUsageMarkdown(
                     userSettingsModel.redownloadInTempProperty.value,

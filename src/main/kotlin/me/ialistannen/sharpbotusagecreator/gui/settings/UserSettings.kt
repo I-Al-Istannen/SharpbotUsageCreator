@@ -3,10 +3,10 @@ package me.ialistannen.sharpbotusagecreator.gui.settings
 import javafx.beans.property.SimpleBooleanProperty
 
 class UserSettings {
-    val includeTocProperty = SimpleBooleanProperty(true)
-    val redownloadInTempProperty = SimpleBooleanProperty(true)
+    var includeTocProperty = SimpleBooleanProperty()
+    var redownloadInTempProperty = SimpleBooleanProperty()
 
     override fun toString(): String {
-        return "UserSettings(includeTocProperty=$includeTocProperty, redownloadInTempProperty=$redownloadInTempProperty)"
+        return "Settings[ toc=${includeTocProperty.value}, inTemp=${redownloadInTempProperty.value} ]"
     }
 }

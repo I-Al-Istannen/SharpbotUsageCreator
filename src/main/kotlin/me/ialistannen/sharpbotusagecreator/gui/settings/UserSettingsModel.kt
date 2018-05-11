@@ -2,15 +2,11 @@ package me.ialistannen.sharpbotusagecreator.gui.settings
 
 import tornadofx.*
 
-class UserSettingsModel : ItemViewModel<UserSettings>() {
-    val includeTocProperty = bind { item?.includeTocProperty }
-    val redownloadInTempProperty = bind { item?.redownloadInTempProperty }
-
-    init {
-        item = UserSettings()
-    }
+class UserSettingsModel(var userSettings: UserSettings? = UserSettings()) : ViewModel() {
+    val includeTocProperty = bind { userSettings?.includeTocProperty }
+    val redownloadInTempProperty = bind { userSettings?.redownloadInTempProperty }
 
     override fun toString(): String {
-        return "UserSettingsModel(settings=$item)"
+        return "UserSettingsModel(settings=$userSettings)"
     }
 }
