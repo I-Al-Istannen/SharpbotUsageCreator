@@ -13,6 +13,7 @@ fun main(args: Array<String>) {
         println("\t--no-redownload-in-temp\t\tClones into this directory and won't delete it" +
                 " afterwards. Useful if you are testing and don't want to screw githubs API.")
         println("\t--toc\t\tPrints a table of contents.")
+        println("\t--no-gui\t\tTo start it without a GUI.")
         return
     }
 
