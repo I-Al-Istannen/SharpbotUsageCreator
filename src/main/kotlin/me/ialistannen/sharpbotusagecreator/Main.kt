@@ -1,11 +1,6 @@
 package me.ialistannen.sharpbotusagecreator
 
 fun main(args: Array<String>) {
-    if (args.none { it == "--no-gui" }) {
-        me.ialistannen.sharpbotusagecreator.gui.main(args)
-        return
-    }
-
     if (args.any { it == "--help" }) {
         println("Creates markdown description pages for SharpBot.")
         println()
@@ -14,6 +9,11 @@ fun main(args: Array<String>) {
                 " afterwards. Useful if you are testing and don't want to screw githubs API.")
         println("\t--toc\t\tPrints a table of contents.")
         println("\t--no-gui\t\tTo start it without a GUI.")
+        return
+    }
+
+    if (args.none { it == "--no-gui" }) {
+        me.ialistannen.sharpbotusagecreator.gui.main(args)
         return
     }
 
