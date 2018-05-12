@@ -2,6 +2,7 @@ package me.ialistannen.sharpbotusagecreator.gui.markdown
 
 import javafx.animation.ScaleTransition
 import javafx.geometry.Pos
+import javafx.scene.input.Clipboard
 import javafx.scene.input.KeyCode
 import javafx.scene.web.WebView
 import javafx.util.Duration
@@ -14,6 +15,18 @@ class MarkdownView : View("Markdown display") {
     private val markdown: String by param("")
 
     override val root = borderpane {
+        top {
+            menubar {
+                menu("Markdown") {
+                    item("Copy to clipboard") {
+                        Clipboard.getSystemClipboard().setContent {
+                            putString(markdown)
+                        }
+                    }
+                }
+            }
+        }
+
         center = stackpane {
             webView = webview {
                 engine.isJavaScriptEnabled = true
