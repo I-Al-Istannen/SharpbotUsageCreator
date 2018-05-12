@@ -57,19 +57,44 @@
               </manifestEntries>
             </transformer>
           </transformers>
-
-          <filters>
-            <filter>
-              <artifact>org.jetbrains.kotlin:kotlin-reflect</artifact>
-              <includes>
-                <include>**</include>
-              </includes>
-            </filter>
-          </filters>
         </configuration>
         <executions>
           <execution>
-            <id>shade</id>
+            <configuration>
+              <finalName>SharpbotUsageCreatorGui</finalName>
+              <filters>
+                <filter>
+                  <artifact>org.jetbrains.kotlin:kotlin-reflect</artifact>
+                  <includes>
+                    <include>**</include>
+                  </includes>
+                </filter>
+              </filters>
+            </configuration>
+
+            <id>shade-gui</id>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+          </execution>
+
+          <execution>
+            <configuration>
+              <finalName>SharpbotUsageCreatorNoGui</finalName>
+              <artifactSet>
+                <includes>
+                  <include>com.google.code.gson:gson:*:*</include>
+                  <include>org.jetbrains.kotlin:*:*:*</include>
+                  <include>org.jetbrains.annotations:*:*:*</include>
+                </includes>
+                <excludes>
+                  <exclude>org.jetbrains.kotlin:kotlin-reflect:*:*</exclude>
+                </excludes>
+              </artifactSet>
+            </configuration>
+
+            <id>shade-no-gui</id>
             <phase>package</phase>
             <goals>
               <goal>shade</goal>

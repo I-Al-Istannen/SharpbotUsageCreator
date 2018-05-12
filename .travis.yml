@@ -3,7 +3,9 @@ deploy:
   provider: releases
   api_key:
     secure: bTC4w21oUOI9+PEV4Yb1lq7KV9xOAvAB4EC9HTYZvwBss/eOR/vd72A3SGLxHsOe+CyquA9Qsd5wvX/tBOZTtCDei00NsXtlO0WfMTsO4AVPD1RcsjEHX6uEPVak7Gsnja874DfIY/4TpQhtiSgVgLKaqGmxkGjCKjWNFBbbIdn2DRMMIdRWbW6o7Cpf7jZqoym4HEHx1K/15n7KoudqqeDDxTLbRe22NC/ImMoehv8oA+dWVj3oPb5QvxjaEsduKwqdQoI1dVDNNdYOecKrh6zJfBKeaBi5WJ3FiaCa6om1Gycgvuofp6R/PX0oGX6GMNiei5cUaCS+B6qTQC5KJVIxDLjr2gPuLsf3hubme1mmfuXX19wYiG+/z17sxEwQvTswPu+SaH4pnGV2L+ajp9/glaiGPev/Q/irrTZNDWv8IYrUrJLamSphwDN54ELlMZOZtXQf04AJrT3RqqorcGgZ01UE7SCZaEEr5emjz4+WcU9i3xKco3v74eK6d8XWX07RrXvzRH0f8y+3gwzGS6q5QyBaLs/r/z4HUFe2WZ1ROmDyPozDZAE31sPXbI9JxTzbbHEG6+GAwCiJPKOhq+kH8lYqPSrDe8wLsmZERgTe8j2TPzgrF/x3QbXw97csPPWZQRATbtBNQcyR3rHVucyG4rQ2CXGrqAhtVHQaa3Y=
-  file: target/SharpbotUsageCreator.jar
+  file:
+    - "target/SharpbotUsageCreatorNoGui.jar"
+    - "target/SharpbotUsageCreatorGui.jar"
   skip_cleanup: true
   on:
     repo: I-Al-Istannen/SharpbotUsageCreator
