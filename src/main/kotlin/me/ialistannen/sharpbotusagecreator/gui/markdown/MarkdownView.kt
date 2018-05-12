@@ -2,9 +2,11 @@ package me.ialistannen.sharpbotusagecreator.gui.markdown
 
 import javafx.animation.ScaleTransition
 import javafx.geometry.Pos
+import javafx.scene.input.KeyCode
 import javafx.scene.web.WebView
 import javafx.util.Duration
 import tornadofx.*
+import kotlin.math.sign
 
 class MarkdownView : View("Markdown display") {
     private var webView: WebView by singleAssign()
@@ -15,6 +17,8 @@ class MarkdownView : View("Markdown display") {
         center = stackpane {
             webView = webview {
                 engine.isJavaScriptEnabled = true
+                addZoomKeyListener()
+                addZoomScrollListener()
             }
             button {
                 addClass(MarkdownStylesheet.floatingButton)
@@ -43,6 +47,32 @@ class MarkdownView : View("Markdown display") {
 
     init {
         setMarkdown(markdown)
+    }
+
+    /**
+     * Enables zooming via `CTRL+PLUS` and `CTRL+MINUS`.
+     */
+    private fun WebView.addZoomKeyListener() {
+        setOnKeyPressed {
+            if (it.isControlDown) {
+                @Suppress("NON_EXHAUSTIVE_WHEN")
+                when (it.code) {
+                    KeyCode.PLUS -> webView.zoom += 0.25
+                    KeyCode.MINUS -> webView.zoom -= 0.25
+                }
+            }
+        }
+    }
+
+    /**
+     * Enables scrolling via `CTRL+MOUSE_WHEEL`.
+     */
+    private fun WebView.addZoomScrollListener() {
+        setOnScroll {
+            if (it.isControlDown) {
+                zoom += sign(it.deltaY) * 0.25
+            }
+        }
     }
 
     /**
